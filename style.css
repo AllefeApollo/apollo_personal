@@ -1,0 +1,742 @@
+/* ==========================================================================
+   1. VARIÁVEIS E BASE
+   ========================================================================== */
+:root {
+    --bg-black: #080808;
+    --bg-dark: #101215;
+    --bg-card: #16191e;
+    --bg-light: #e5e5e5;
+    --gold: #d4a359;
+    --gold-hover: #b88a44;
+    --text-primary: #ffffff;
+    --text-secondary: #9ca3af;
+    --text-dark: #111827;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --font-heading: 'Manrope', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    background-color: var(--bg-black);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+ul { list-style: none; }
+a { text-decoration: none; color: inherit; }
+
+/* Acessibilidade */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--gold);
+    color: var(--bg-black);
+    padding: 8px 16px;
+    z-index: 2000;
+    font-weight: bold;
+    transition: top 0.3s;
+}
+.skip-link:focus { top: 0; }
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section { padding: 100px 0; }
+.section-dark { background-color: var(--bg-dark); }
+.section-black { background-color: var(--bg-black); }
+.section-light { background-color: var(--bg-light); color: var(--text-dark); }
+
+.eyebrow {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+}
+
+.section-light .eyebrow { color: #8b6b35; }
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+em {
+    font-style: normal;
+    color: var(--gold);
+}
+
+/* BOTÕES */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-gold {
+    background-color: var(--gold);
+    color: var(--bg-black);
+}
+.btn-gold:hover { background-color: var(--gold-hover); transform: translateY(-2px); }
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+.btn-outline-gold {
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    font-size: 0.85rem;
+}
+.btn-outline-gold:hover { border-color: var(--gold); color: var(--gold); }
+
+.btn-outline-dark {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: var(--text-dark);
+}
+.btn-outline-dark:hover { background: rgba(0, 0, 0, 0.05); }
+
+/* ==========================================================================
+   2. NAVBAR
+   ========================================================================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(8, 8, 8, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+.brand-copy { display: flex; flex-direction: column; line-height: 1; }
+.brand-copy strong { font-size: 1.1rem; letter-spacing: 0.05em; }
+.brand-copy small { font-size: 0.65rem; color: var(--text-secondary); letter-spacing: 0.2em; }
+
+.nav-menu { display: flex; gap: 30px; }
+.nav-link { color: var(--text-secondary); font-size: 0.88rem; transition: color 0.3s; }
+.nav-link:hover, .nav-link.active { color: var(--text-primary); }
+
+.nav-actions { display: flex; align-items: center; gap: 20px; }
+.cref { font-size: 0.75rem; color: var(--text-secondary); }
+
+/* ==========================================================================
+   3. HERO SECTION (AJUSTADA E CORRIGIDA)
+   ========================================================================== */
+.hero-section {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 80px;
+    background: linear-gradient(to right, rgba(8,8,8,0.95) 40%, rgba(8,8,8,0.4)), 
+                url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 1.2rem;
+    color: #ffffff;
+}
+
+.hero-lead {
+    font-size: 1.15rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+    max-width: 580px;
+}
+
+.hero-actions { display: flex; gap: 15px; margin-bottom: 60px; }
+
+.hero-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+}
+
+.pillar-item { display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem; color: var(--text-secondary); }
+.pillar-item i { color: var(--gold); font-size: 1.2rem; }
+
+/* CORREÇÃO DO BADGE LATERAL */
+.hero-side-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 30px;
+    height: 100%;
+    position: relative;
+}
+
+.vertical-text {
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    position: relative;
+    right: 0;
+    white-space: nowrap;
+}
+
+.hero-keywords {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+}
+
+.hero-keywords span {
+    display: block;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   4. SOBRE O PROFISSIONAL
+   ========================================================================== */
+.sobre-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.sobre-content h2 { font-size: 2.5rem; margin-bottom: 25px; }
+.sobre-text { color: var(--text-secondary); margin-bottom: 30px; line-height: 1.8; }
+
+.credentials-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+.credentials-list i { color: var(--gold); }
+
+.sobre-media {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 20px;
+    align-items: center;
+}
+
+.image-wrapper img {
+    width: 100%;
+    border-radius: 8px;
+    filter: grayscale(20%);
+}
+
+.brand-card {
+    background-color: var(--bg-black);
+    border: 1px solid var(--border-color);
+    padding: 30px 20px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.brand-card .brand-mark { margin: 0 auto 15px; width: 48px; height: 48px; font-size: 1.4rem; }
+.brand-title { font-weight: 800; font-size: 1.2rem; letter-spacing: 0.1em; }
+.brand-subtitle { font-size: 0.7rem; color: var(--text-secondary); letter-spacing: 0.2em; margin-bottom: 10px; }
+.cref-tag { font-size: 0.75rem; color: var(--gold); margin-bottom: 15px; }
+.card-divider { height: 1px; background: var(--border-color); margin: 15px 0; }
+
+.badge-features li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   5. O MÉTODO
+   ========================================================================== */
+.metodo-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.metodo-header h2 { font-size: 2.2rem; color: var(--text-dark); margin-bottom: 20px; }
+.metodo-header p { color: #4b5563; margin-bottom: 30px; font-size: 0.95rem; }
+
+.steps-flow {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.step-card {
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    flex: 1;
+}
+
+.step-icon { font-size: 1.8rem; color: var(--text-dark); margin-bottom: 15px; }
+.step-number { font-weight: 800; font-size: 0.85rem; color: #9ca3af; margin-bottom: 8px; }
+.step-card h3 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 10px; }
+.step-card p { font-size: 0.82rem; color: #6b7280; line-height: 1.5; }
+
+.step-arrow { color: #9ca3af; font-size: 0.9rem; }
+
+/* ==========================================================================
+   6. PARA QUEM É O TREINAMENTO
+   ========================================================================== */
+.objetivos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.objetivos-header h2 { font-size: 2.5rem; margin-bottom: 20px; }
+.objetivos-header p { color: var(--text-secondary); margin-bottom: 40px; }
+
+.objetivos-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.obj-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.obj-card i { font-size: 1.8rem; color: var(--gold); }
+.obj-card h4 { font-size: 1rem; line-height: 1.4; }
+
+.objetivos-side-image {
+    min-height: 450px;
+    background: linear-gradient(to top, rgba(8,8,8,0.9), transparent),
+                url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=1000') center/cover no-repeat;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    padding: 40px;
+    border-left: 2px solid var(--gold);
+}
+
+.side-overlay-text { display: flex; flex-direction: column; gap: 5px; }
+.side-overlay-text span { font-size: 0.85rem; letter-spacing: 0.15em; color: var(--text-secondary); }
+.side-overlay-text strong { font-size: 1.1rem; letter-spacing: 0.15em; color: var(--text-primary); }
+
+/* ==========================================================================
+   CORREÇÃO E ESTILIZAÇÃO DO FINAL DO SITE (SEÇÕES 5, 6 E 7)
+   ========================================================================== */
+
+/* --- 5. PLANOS --- */
+.planos-section {
+    padding: 90px 0;
+    background-color: var(--bg-dark);
+}
+
+.planos-section .section-header {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 50px auto;
+}
+
+.planos-section .section-header h2 {
+    font-size: 2.3rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.planos-section .section-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.planos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.plano-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 35px 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.plano-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.plano-card h3 {
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.plano-local {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.plano-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.planos-cta {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* --- 6. CONTATO --- */
+.contato-section {
+    padding: 80px 0;
+    background-color: var(--bg-black);
+}
+
+.contato-box {
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(22, 25, 30, 0.6) 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 50px 40px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.contato-box h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+
+.contato-box p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+}
+
+/* --- 7. FAQ (PERGUNTAS FREQUENTES) --- */
+.faq-section {
+    padding: 90px 0;
+    background-color: var(--bg-dark);
+}
+
+.faq-section .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.faq-section .section-header h2 {
+    font-size: 2.2rem;
+    color: var(--text-primary);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.faq-item h3 {
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.faq-item p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* --- BOTÕES UTILITÁRIOS PARA AS NOVAS SEÇÕES --- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gold);
+    color: var(--bg-black);
+    padding: 14px 32px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--gold-hover);
+    transform: translateY(-2px);
+}
+
+/* --- RESPONSIVIDADE DO FINAL DO SITE --- */
+@media (max-width: 992px) {
+    .planos-grid {
+        grid-template-columns: 1fr;
+    }
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+    .contato-box {
+        padding: 40px 20px;
+    }
+}
+
+/* ==========================================================================
+   8. BOTÕES FLUTUANTES (WHATSAPP E INSTAGRAM)
+   ========================================================================== */
+.floating-socials {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+}
+
+.float-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.float-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+}
+
+.float-whatsapp {
+    background-color: #25d366;
+}
+
+.float-instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+/* ==========================================================================
+   9. RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-grid, .sobre-grid, .metodo-grid, .objetivos-grid, .planos-banner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .steps-flow { flex-direction: column; }
+    .step-arrow { transform: rotate(90deg); margin: 10px 0; }
+    .hero-pillars { grid-template-columns: repeat(2, 1fr); }
+    .planos-call { border-left: none; padding-left: 0; border-top: 1px solid var(--border-color); padding-top: 30px; }
+    .nav-menu, .cref { display: none; }
+    .floating-socials { bottom: 20px; right: 20px; }
+    .float-btn { width: 48px; height: 48px; font-size: 1.4rem; }
+}
+/* ==========================================================================
+   SUPORTE A ANIMAÇÕES E EFEITOS DO SCRIPT.JS
+   ========================================================================== */
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(35px);
+    will-change: opacity, transform;
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Transição para os cards 3D */
+.obj-card, .step-card, .brand-card {
+    will-change: transform;
+    transform-style: preserve-3d;
+}
+/* ==========================================================================
+   CORREÇÃO DEFINITIVA - TAMANHO DOS CARDS DO MÉTODO
+   ========================================================================== */
+
+/* Se o container usar CSS Grid ou Flexbox */
+.steps-container, 
+.steps-grid,
+div[class*="step"]:not(.step-card) {
+    display: flex !important;
+    align-items: stretch !important;
+}
+
+/* Força altura, largura e alinhamento idênticos em cada card */
+.step-card {
+    flex: 1 1 0px !important;    /* Força todos a terem exatamente a mesma largura proporcional */
+    min-height: 340px !important;  /* Define uma altura mínima fixa para padronizar */
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+}
+
+/* Evita que ícones ou textos desalinhem os blocos */
+.step-card .step-icon,
+.step-card i,
+.step-card svg {
+    margin-bottom: 1rem !important;
+}
+
+.step-card p {
+    margin-top: 0.5rem !important;
+}
+/* ==========================================================================
+   CENTRALIZAÇÃO VERTICAL DAS SETAS DOS PASSO-A-PASSO
+   ========================================================================== */
+
+/* Centraliza os itens dentro do container principal */
+.steps-container, 
+.steps-grid {
+    display: flex !important;
+    align-items: center !important; /* Centraliza verticalmente todos os elementos internos */
+}
+
+/* Caso as setas sejam elementos separados com uma classe específica */
+.step-arrow,
+.steps-container > i,
+.steps-grid > i,
+.steps-container > svg,
+.steps-grid > svg,
+.steps-container > span {
+    align-self: center !important; /* Força o alinhamento central da seta */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 0.5rem !important;
+}
+/* ==========================================================================
+   ALINHAMENTO DO QUADRADO DA IMAGEM COM OS CARDS (ESTRUTURA EXATA)
+   ========================================================================== */
+
+/* 1. Transforma a coluna da esquerda em um container flex para empurrar os cards */
+.objetivos-header {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* 2. Alinha a imagem da direita na base da seção */
+.objetivos-grid {
+    display: flex !important;
+    align-items: flex-end !important; /* Força o alinhamento pela base */
+}
+
+/* 3. Força a altura da imagem a bater exatamente com o topo e a base dos 4 cards */
+.objetivos-side-image {
+    align-self: flex-end !important;
+    /* Ajusta a altura da imagem para ser idêntica à área dos 4 cartões da esquerda */
+    height: 100% !important;
+    max-height: 420px !important; /* Ajuste fino do tamanho do quadrado */
+    width: 100% !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
